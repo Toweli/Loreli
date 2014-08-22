@@ -1,5 +1,7 @@
 package net.loreli.connection;
 
+import net.loreli.logging.ProgramLogSingleton;
+
 public class ConnectionCreator
 {
 	public static ConnectionHandler createConnection(String strAddress, int iPort)

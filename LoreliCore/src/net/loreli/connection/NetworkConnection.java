@@ -7,6 +7,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import net.loreli.base.StreamReaderWriter;
+import net.loreli.logging.ProgramLogSingleton;
 import net.loreli.messaging.Message;
 
 public class NetworkConnection implements Runnable, IConnection
@@ -59,7 +60,9 @@ public class NetworkConnection implements Runnable, IConnection
 				catch (InterruptedException e1)
 				{
 				}
-				e.printStackTrace();
+
+				ProgramLogSingleton.getInstance().error("ConnectionError",
+						"Cann't create a Socket to " + m_strAdress + ":" + m_iPort);
 			}
 			iTrys++;
 		}
@@ -82,7 +85,7 @@ public class NetworkConnection implements Runnable, IConnection
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't create a StreamReaderWriter");
 			m_bIsRunning = false;
 		}
 	}
@@ -95,35 +98,32 @@ public class NetworkConnection implements Runnable, IConnection
 	@Override
 	public void run()
 	{
-		// TODO: very dirty ...
-		// while(m_oSocket == null || !m_oSocket.isConnected());
-
 		while (m_bIsRunning && !m_oSocket.isClosed())
 		{
 			Message oMessage = new Message();
 			try
 			{
 				oMessage.deserialize(m_oStreamReaderWriter);
-				// synchronized (this) {
 				try
 				{
 					m_qReceivedMessages.put(oMessage);
-					// notify();
 				}
 				catch (InterruptedException e)
 				{
-					e.printStackTrace();
+					ProgramLogSingleton.getInstance().error("InterruptedException",
+							"BlockingQueue was interrupted while putting a message.");
 				}
-				// }
 			}
 			catch (IOException e1)
 			{
+				ProgramLogSingleton.getInstance().error("DeserializationError", "Cann't deserializes a message");
 				try
 				{
 					m_oSocket.close();
 				}
 				catch (IOException e)
 				{
+					ProgramLogSingleton.getInstance().error("SocketCloseException", "Cann't close socket.");
 				}
 			}
 
@@ -167,7 +167,8 @@ public class NetworkConnection implements Runnable, IConnection
 		}
 		catch (InterruptedException e)
 		{
-			e.printStackTrace();
+			ProgramLogSingleton.getInstance().error("InterruptedException",
+					"BlockingQueue was interrupted while waiting.");
 		}
 		return null;
 	}
@@ -215,7 +216,7 @@ public class NetworkConnection implements Runnable, IConnection
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			ProgramLogSingleton.getInstance().error("SocketError", "Cann't close the Socket");
 		}
 	}
 }

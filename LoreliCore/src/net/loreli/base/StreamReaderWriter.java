@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import net.loreli.logging.ProgramLogSingleton;
+
 public class StreamReaderWriter implements ISerializer, IDeSerializer
 {
 	private DataInputStream		m_oDataIn;
@@ -18,7 +20,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		m_oDataIn = new DataInputStream(new BufferedInputStream(oInputStream));
 		m_oBufferedOut = new DataOutputStream(new BufferedOutputStream(oOutputStream));
 	}
-	
+
 	public boolean canRead()
 	{
 		boolean bResult = false;
@@ -28,6 +30,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOMessage", "DataInputstream is defect");
 		}
 		return bResult;
 	}
@@ -53,6 +56,11 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 				iTriedWrites++;
 				Thread.yield();
 			}
+		}
+		if (!bWriteSuccess)
+		{
+			ProgramLogSingleton.getInstance().error("IOException",
+					"Cann't write a message after " + iTriedWrites + " tries.");
 		}
 		return aBytes.length;
 	}
@@ -133,6 +141,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -153,6 +162,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -167,6 +177,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -181,6 +192,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -195,6 +207,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -209,6 +222,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -225,6 +239,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
 			return 0;
 		}
 	}
@@ -243,8 +258,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't flush the BufferedOutputStream.");
 		}
 	}
 }

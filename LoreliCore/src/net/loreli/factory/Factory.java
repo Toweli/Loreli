@@ -3,6 +3,8 @@ package net.loreli.factory;
 import java.io.InvalidClassException;
 import java.util.HashMap;
 
+import net.loreli.logging.ProgramLogSingleton;
+
 public class Factory<T> implements IFactory
 {
 	private HashMap<String, Creater<? extends T>>	m_mCreater; // WTF?
@@ -35,7 +37,7 @@ public class Factory<T> implements IFactory
 		}
 		catch (InvalidClassException e)
 		{
-			e.printStackTrace();
+			ProgramLogSingleton.getInstance().error("CreatorError", "Class is invalid: " + e.getMessage());
 		}
 	}
 }

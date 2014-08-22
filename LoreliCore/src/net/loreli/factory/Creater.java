@@ -3,6 +3,8 @@ package net.loreli.factory;
 import java.io.InvalidClassException;
 import java.lang.reflect.Constructor;
 
+import net.loreli.logging.ProgramLogSingleton;
+
 public class Creater<T>
 {
 	Class<? extends T>	m_oClass;
@@ -20,7 +22,7 @@ public class Creater<T>
 		}
 		if (!bClassIsValid)
 		{
-			throw new InvalidClassException("Class doesn't have a default ctor.");
+			throw new InvalidClassException("Class " + m_oClass.getName() + "doesn't have a default ctor.");
 		}
 	}
 
@@ -37,7 +39,9 @@ public class Creater<T>
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+			ProgramLogSingleton.getInstance().error("ObjectCreationError",
+					"Cann't create an Object of type " + m_oClass.getName());
 		}
 		return null;
 	}

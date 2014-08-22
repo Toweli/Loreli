@@ -2,6 +2,7 @@ package net.loreli.messaging;
 
 import net.loreli.factory.Factory;
 import net.loreli.factory.FactoryRegister;
+import net.loreli.logging.ProgramLogSingleton;
 import net.loreli.messaging.messagetypes.AuthenticateMessageType;
 import net.loreli.messaging.messagetypes.AuthenticationValidatedMessageType;
 import net.loreli.messaging.messagetypes.RegisterMessageType;
@@ -17,6 +18,7 @@ public class MessageTypeFactoryInitializer
 	{
 		if (FactoryRegister.getInstance().isRegistered("MessageTypeFactory"))
 		{
+			ProgramLogSingleton.getInstance().warning("The MessageTypeFactory is already initialized", 5);
 			return;
 		}
 		Factory<IMessageType> oFactory = new Factory<IMessageType>();

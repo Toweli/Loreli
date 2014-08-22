@@ -2,6 +2,7 @@ package net.loreli.connection;
 
 import java.util.HashMap;
 
+import net.loreli.logging.ProgramLogSingleton;
 import net.loreli.messaging.IMessageHandler;
 import net.loreli.messaging.Message;
 
@@ -77,7 +78,6 @@ public class ConnectionHandler implements Runnable, IConnectionLostListener, ICo
 	@Override
 	public void onConnectionLost()
 	{
-		System.out.println("Connection Lost!!!");
 		disconnect();
 		// TODO: do something special (implement something here)
 		// whatever you want
@@ -91,6 +91,7 @@ public class ConnectionHandler implements Runnable, IConnectionLostListener, ICo
 	{
 		synchronized (this)
 		{
+			ProgramLogSingleton.getInstance().info("Connection established.");
 			if (m_oConnection == oConnection && m_oConnection.isConnected())
 			{
 				m_oConnection.start();
