@@ -8,23 +8,20 @@ import net.loreli.logging.ProgramLogSingleton;
 public class TEventHandler<Arguments>
 {
 	private Object	m_oHandler;
-	private Method	m_oMethod;
+	private String	m_strMethod;
 
-	public TEventHandler(Object oHandler, Method oMethod)
+	public TEventHandler(Object oHandler, String strMethod)
 	{
 		m_oHandler = oHandler;
-		m_oMethod = oMethod;
-		if(!m_oMethod.isAccessible() || m_oMethod.getGenericParameterTypes().length!=1)
-		{
-			ProgramLogSingleton.getInstance().error("MethodError", "Wrong method.");
-		}
+		m_strMethod = strMethod;
 	}
 
-	public void handleEvent(Arguments oArguments)
+	public void handleEvent(Object oSender, Arguments oArguments)
 	{
 		try
 		{
-			m_oMethod.invoke(m_oHandler, new Object[]{oArguments});
+			Method oMethod = m_oHandler.getClass().getMethod(m_strMethod, Object.class, oArguments.getClass());
+			oMethod.invoke(m_oHandler, new Object[]{oSender, oArguments});
 		}
 		catch (IllegalAccessException e)
 		{
@@ -37,6 +34,14 @@ public class TEventHandler<Arguments>
 		catch (InvocationTargetException e)
 		{
 			ProgramLogSingleton.getInstance().error("InvocationTargetException", "object doesn't have the method.");
+		}
+		catch (NoSuchMethodException e)
+		{
+			ProgramLogSingleton.getInstance().error("NoSuchMethodException", "Method doesn't exist");
+		}
+		catch (SecurityException e)
+		{
+			ProgramLogSingleton.getInstance().error("SecurityException", "SecurityException");
 		}
 	}
 }
