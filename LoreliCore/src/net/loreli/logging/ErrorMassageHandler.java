@@ -1,20 +1,17 @@
 package net.loreli.logging;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class ErrorMassageHandler extends AbstractLogMessageHandler
 {
 	private static final String[]	m_aExceptedMessageTypes	= { ErrorMessage.class.getSimpleName() };
 
-	private DataOutputStream		m_oBufferedOut;
 	private String					m_strFormat = "[%1$tF %1$tT] [%6$s] [%7$s] [Thread: %2$s] [Class: %3$s] [Method: %4$s] [Line: %5$d]%n";
 
-	public ErrorMassageHandler(DataOutputStream oOut)
+	public ErrorMassageHandler(OutputStream oOut)
 	{
-		super(m_aExceptedMessageTypes);
-
-		m_oBufferedOut = oOut;
+		super(oOut, m_aExceptedMessageTypes);
 	}
 
 	/**
@@ -54,14 +51,11 @@ public class ErrorMassageHandler extends AbstractLogMessageHandler
 
 		try
 		{
-			m_oBufferedOut.writeBytes(strMsg);
+			write(strMsg);
 		}
 		catch (IOException e)
 		{
-			/* we failed to writ the error message into to output stream
-			 * TODO what should we do now? 
-			 * If we write an error message into the ProgramLog we will probably end up here again.
-			 */
+			e.printStackTrace();
 		}
 	}
 }

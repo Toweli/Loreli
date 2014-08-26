@@ -1,22 +1,19 @@
 package net.loreli.logging;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class WarningMassageHandler extends AbstractLogMessageHandler
 {
 	private static final String[]	m_aExceptedMessageTypes	= { WarningMessage.class.getSimpleName() };
 
-	private DataOutputStream		m_oBufferedOut;
 	private int						m_iMinSeverity	= 0;
 	private int						m_iMaxSeverity	= Integer.MAX_VALUE;
 	private String					m_strFormat			= "[%1$tF %1$tT] [%6$s] [Thread: %2$s] [Class: %3$s] [Method: %4$s] [Line: %5$d]%n";
 
-	public WarningMassageHandler(DataOutputStream oOut)
+	public WarningMassageHandler(OutputStream oOut)
 	{
-		super(m_aExceptedMessageTypes);
-
-		m_oBufferedOut = oOut;
+		super(oOut, m_aExceptedMessageTypes);
 	}
 
 	/**
@@ -68,15 +65,11 @@ public class WarningMassageHandler extends AbstractLogMessageHandler
 
 		try
 		{
-			m_oBufferedOut.writeBytes(strMsg);
+			write(strMsg);
 		}
 		catch (IOException e)
 		{
-			/*
-			 * we failed to writ the error message into to output stream TODO
-			 * what should we do now? If we write an error message into the
-			 * ProgramLog we will probably end up here again.
-			 */
+			ProgramLogSingleton.getInstance().error("IOException", "Can't write to output stream.");
 		}
 	}
 }

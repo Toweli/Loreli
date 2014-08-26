@@ -37,7 +37,7 @@ public class ProgramLogSingleton
 		}
 	}
 
-	public Boolean writMessage(AbstractLogMessage oMessage)
+	public Boolean writeMessage(AbstractLogMessage oMessage)
 	{
 		ArrayList<AbstractLogMessageHandler> alHandler = m_mapMassageHandler.get(oMessage.getMessageType());
 
@@ -66,7 +66,7 @@ public class ProgramLogSingleton
 		oMessage.setName(strName);
 		oMessage.setDescription(strDescription);
 
-		return writMessage(oMessage);
+		return writeMessage(oMessage);
 	}
 
 	public Boolean debug(String strText, int iDebugLevel)
@@ -78,7 +78,7 @@ public class ProgramLogSingleton
 		oMessage.setText(strText);
 		oMessage.setDebugLevel(iDebugLevel);
 
-		return writMessage(oMessage);
+		return writeMessage(oMessage);
 	}
 
 	public Boolean info(String strText)
@@ -89,7 +89,7 @@ public class ProgramLogSingleton
 		InfoMessage oMessage = new InfoMessage(oThread, oCaller);
 		oMessage.setText(strText);
 
-		return writMessage(oMessage);
+		return writeMessage(oMessage);
 	}
 
 	public Boolean warning(String strText, int iSeverity)
@@ -101,6 +101,6 @@ public class ProgramLogSingleton
 		oMessage.setText(strText);
 		oMessage.setSeverity(iSeverity);
 
-		return writMessage(oMessage);
+		return writeMessage(oMessage);
 	}
 }

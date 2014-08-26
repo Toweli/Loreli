@@ -1,20 +1,17 @@
 package net.loreli.logging;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class InfoMassageHandler extends AbstractLogMessageHandler
 {
 	private static final String[]	m_aExceptedMessageTypes	= { InfoMessage.class.getSimpleName() };
 
-	private DataOutputStream		m_oBufferedOut;
 	private String					m_strFormat			= "[%1$tF %1$tT] [%6$s] [Thread: %2$s] [Class: %3$s] [Method: %4$s] [Line: %5$d]%n";
 
-	public InfoMassageHandler(DataOutputStream oOut)
+	public InfoMassageHandler(OutputStream oOut)
 	{
-		super(m_aExceptedMessageTypes);
-
-		m_oBufferedOut = oOut;
+		super(oOut, m_aExceptedMessageTypes);
 	}
 
 	/**
@@ -52,7 +49,7 @@ public class InfoMassageHandler extends AbstractLogMessageHandler
 
 		try
 		{
-			m_oBufferedOut.writeBytes(strMsg);
+			write(strMsg);
 		}
 		catch (IOException e)
 		{
