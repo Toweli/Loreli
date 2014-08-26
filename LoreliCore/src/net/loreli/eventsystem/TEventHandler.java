@@ -47,7 +47,7 @@ public class TEventHandler<Arguments>
 		}
 		catch (NoSuchMethodException e)
 		{
-			ProgramLogSingleton.getInstance().error("NoSuchMethodException", "Method doesn't exist");
+			ProgramLogSingleton.getInstance().error("NoSuchMethodException", "Method doesn't exist. (Maybe it's not accessable(public).)");
 		}
 		catch (SecurityException e)
 		{
