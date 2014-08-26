@@ -2,6 +2,8 @@ package net.loreli.eventsystem;
 
 import java.util.ArrayList;
 
+import net.loreli.logging.ProgramLogSingleton;
+
 public class TEvent<Arguments >
 {
 	private ArrayList<TEventHandler<Arguments>> m_liEventHandler = new ArrayList<>();
@@ -22,11 +24,40 @@ public class TEvent<Arguments >
 	
 	public void addHandler(Object oHandler, String strMethodName)
 	{
-		m_liEventHandler.add(new TEventHandler<Arguments>(oHandler, strMethodName));
+		TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName);
+		if(!m_liEventHandler.contains(oEventHandler))
+		{
+			m_liEventHandler.add(oEventHandler);
+		}
+		else
+		{
+			ProgramLogSingleton.getInstance().warning("Handler already exists", 4);
+		}
 	}
 	
-	public void removeHandler(TEventHandler<Arguments> oHandler)
+	public void removeHandler(Object oHandler, String strMethodName)
 	{
-		m_liEventHandler.remove(oHandler);
+		TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName);
+		if(m_liEventHandler.contains(oEventHandler))
+		{
+			m_liEventHandler.remove(oEventHandler);
+		}
+		else
+		{
+			ProgramLogSingleton.getInstance().warning("Handler doesn't exist", 4);
+		}
+	}
+	
+	public void removeAllHandlerOf(Object oHandler)
+	{
+		ArrayList<TEventHandler<Arguments>> liToRemove = new ArrayList<>();
+		for(TEventHandler<Arguments> oEventHandler : m_liEventHandler)
+		{
+			if(oEventHandler.getHandler().equals(oHandler))
+			{
+				liToRemove.add(oEventHandler);
+			}
+		}
+		m_liEventHandler.removeAll(liToRemove);
 	}
 }

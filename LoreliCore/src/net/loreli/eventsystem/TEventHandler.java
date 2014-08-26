@@ -15,6 +15,16 @@ public class TEventHandler<Arguments>
 		m_oHandler = oHandler;
 		m_strMethod = strMethod;
 	}
+	
+	public Object getHandler()
+	{
+		return m_oHandler;
+	}
+	
+	public String getMethodName()
+	{
+		return m_strMethod;
+	}
 
 	public void handleEvent(Object oSender, Arguments oArguments)
 	{
@@ -42,6 +52,20 @@ public class TEventHandler<Arguments>
 		catch (SecurityException e)
 		{
 			ProgramLogSingleton.getInstance().error("SecurityException", "SecurityException");
+		}
+	}
+	
+	@Override
+	public boolean equals(Object oOther)
+	{
+		if(oOther instanceof TEventHandler<?>)
+		{
+			TEventHandler<?> oOtherHandler = (TEventHandler<?>) oOther;
+			return oOtherHandler.m_oHandler.equals(m_oHandler) && oOtherHandler.m_strMethod.equals(m_strMethod);
+		}
+		else
+		{
+			return false;
 		}
 	}
 }
