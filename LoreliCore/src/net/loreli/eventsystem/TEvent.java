@@ -22,9 +22,9 @@ public class TEvent<Arguments >
 		}
 	}
 	
-	public void addHandler(Object oHandler, String strMethodName)
+	public void addHandler(Object oHandler, String strMethodName, boolean bQueued)
 	{
-		TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName);
+		TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName, bQueued);
 		if(!m_liEventHandler.contains(oEventHandler))
 		{
 			m_liEventHandler.add(oEventHandler);
@@ -33,6 +33,11 @@ public class TEvent<Arguments >
 		{
 			ProgramLogSingleton.getInstance().warning("Handler already exists", 4);
 		}
+	}
+	
+	public void addHandler(Object oHandler, String strMethodName)
+	{
+		addHandler(oHandler, strMethodName, false);
 	}
 	
 	public void removeHandler(Object oHandler, String strMethodName)

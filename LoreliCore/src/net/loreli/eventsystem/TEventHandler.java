@@ -1,58 +1,51 @@
 package net.loreli.eventsystem;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import net.loreli.logging.ProgramLogSingleton;
-
 public class TEventHandler<Arguments>
 {
 	private Object	m_oHandler;
 	private String	m_strMethod;
+	
+	private boolean m_bQueued;
 
-	public TEventHandler(Object oHandler, String strMethod)
+	TEventHandler(Object oHandler, String strMethod)
+	{
+		this(oHandler, strMethod, false);
+	}
+	
+	TEventHandler(Object oHandler, String strMethod, boolean bQueued)
 	{
 		m_oHandler = oHandler;
 		m_strMethod = strMethod;
+		m_bQueued = bQueued;
 	}
 	
-	public Object getHandler()
+	Object getHandler()
 	{
 		return m_oHandler;
 	}
 	
-	public String getMethodName()
+	String getMethodName()
 	{
 		return m_strMethod;
 	}
 
 	public void handleEvent(Object oSender, Arguments oArguments)
 	{
-		try
+		EventEmitter oEmitter = new EventEmitter(this, oSender, oArguments);
+		if(m_bQueued)
 		{
-			Method oMethod = m_oHandler.getClass().getMethod(m_strMethod, Object.class, oArguments.getClass());
-			oMethod.invoke(m_oHandler, new Object[]{oSender, oArguments});
+			EventManager.getInstance().putEventEmiter(oEmitter);
 		}
-		catch (IllegalAccessException e)
+		else
 		{
-			ProgramLogSingleton.getInstance().error("IllegalAccessException", "cann't invoke method");
+			emit(oEmitter);
 		}
-		catch (IllegalArgumentException e)
-		{
-			ProgramLogSingleton.getInstance().error("IllegalArgumentException", "wrong arguments for this method");
-		}
-		catch (InvocationTargetException e)
-		{
-			ProgramLogSingleton.getInstance().error("InvocationTargetException", "object doesn't have the method.");
-		}
-		catch (NoSuchMethodException e)
-		{
-			ProgramLogSingleton.getInstance().error("NoSuchMethodException", "Method doesn't exist. (Maybe it's not accessable(public).)");
-		}
-		catch (SecurityException e)
-		{
-			ProgramLogSingleton.getInstance().error("SecurityException", "SecurityException");
-		}
+	}
+	
+	// yes package private!
+	void emit(EventEmitter oEmitter)
+	{
+		oEmitter.run();
 	}
 	
 	@Override
