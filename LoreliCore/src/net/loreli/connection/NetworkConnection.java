@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import net.loreli.base.StreamReaderWriter;
@@ -23,7 +24,7 @@ public class NetworkConnection implements Runnable, IConnection
 
 	private ArrayList<IConnectionLostListener>	m_liConnectionLostListener;
 
-	private ArrayBlockingQueue<Message>			m_qReceivedMessages;
+	private BlockingQueue<Message>			m_qReceivedMessages;
 
 	NetworkConnection(Socket oSocket)
 	{
