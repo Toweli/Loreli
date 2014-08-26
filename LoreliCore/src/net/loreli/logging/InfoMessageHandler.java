@@ -3,15 +3,13 @@ package net.loreli.logging;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class WarningMassageHandler extends AbstractLogMessageHandler
+public class InfoMessageHandler extends AbstractLogMessageHandler
 {
-	private static final String[]	m_aExceptedMessageTypes	= { WarningMessage.class.getSimpleName() };
+	private static final String[]	m_aExceptedMessageTypes	= { InfoMessage.class.getSimpleName() };
 
-	private int						m_iMinSeverity	= 0;
-	private int						m_iMaxSeverity	= Integer.MAX_VALUE;
 	private String					m_strFormat			= "[%1$tF %1$tT] [%6$s] [Thread: %2$s] [Class: %3$s] [Method: %4$s] [Line: %5$d]%n";
 
-	public WarningMassageHandler(OutputStream oOut)
+	public InfoMessageHandler(OutputStream oOut)
 	{
 		super(oOut, m_aExceptedMessageTypes);
 	}
@@ -27,41 +25,27 @@ public class WarningMassageHandler extends AbstractLogMessageHandler
 	 * 		4$ 	The name of the Method in which the message has been created
 	 * 		5$ 	The line number in which the message has been created.
 	 * 
-	 * 		6$ 	The text of the warning
-	 * 		7$ 	The Severity of the warning
+	 * 		6$ 	The text of the info message
 	 */
 	public void setOutputFormat(String strFormat)
 	{
 		m_strFormat = strFormat;
 	}
-	
-	public void setMinSeverity(int iSeverity)
-	{
-		m_iMinSeverity = iSeverity;
-	}
-	
-	public void setMaxSeverity(int iSeverity)
-	{
-		m_iMaxSeverity = iSeverity;
-	}
 
 	@Override
 	public void handleMessage(AbstractLogMessage oMessage)
 	{
-		// we only except DebugMessages, so oMessage should be an DebugMessage
-		WarningMessage oMsg = (WarningMessage) (oMessage);
+		// we only except InfoMessages, so oMessage should be an InfoMessage
+		InfoMessage oMsg = (InfoMessage) (oMessage);
 
-		if (oMsg.getSeverity() < m_iMinSeverity || oMsg.getSeverity() > m_iMaxSeverity)
-			return;
 
-		String strMsg = String.format(m_strFormat, 
+		String strMsg = String.format(m_strFormat,
 				oMsg.getDate(), 
 				oMsg.getThread().getName(), 
 				oMsg.getCaller().getClassName(), 
 				oMsg.getCaller().getMethodName(), 
-				oMsg.getCaller().getLineNumber(), 
-				oMsg.getText(), 
-				oMsg.getSeverity());
+				oMsg.getCaller().getLineNumber(),
+				oMsg.getText());
 
 		try
 		{

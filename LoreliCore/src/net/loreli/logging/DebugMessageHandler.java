@@ -3,7 +3,7 @@ package net.loreli.logging;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class DebugMassageHandler extends AbstractLogMessageHandler
+public class DebugMessageHandler extends AbstractLogMessageHandler
 {
 	private static final String[]	m_aExceptedMessageTypes	= { DebugMessage.class.getSimpleName() };
 
@@ -13,7 +13,7 @@ public class DebugMassageHandler extends AbstractLogMessageHandler
 	private String					m_strParameterFormat	= "%1$s=\"%2$s\"";
 	private String					m_strParameterSeparator	= " ";
 
-	public DebugMassageHandler(OutputStream oOut)
+	public DebugMessageHandler(OutputStream oOut)
 	{
 		super(oOut, m_aExceptedMessageTypes);
 	}
