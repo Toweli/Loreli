@@ -41,7 +41,7 @@ public class EventManager
 		}
 	}
 	
-	public void putEventEmiter(EventEmitter oEmitter)
+	void putEventEmiter(EventEmitter oEmitter)
 	{
 		try
 		{

@@ -2,21 +2,21 @@ package net.loreli.base;
 
 public interface ISerializer
 {
-	int writeBoolean(boolean bOut);
+	void writeBoolean(boolean bOut);
 
-	int writeByte(byte bOut);
+	void writeByte(byte bOut);
 
-	int writeShort(short iOut);
+	void writeShort(short iOut);
 
-	int writeInt(int iOut);
+	void writeInt(int iOut);
 
-	int writeLong(long iOut);
+	void writeLong(long iOut);
 
-	int writeFloat(float fOut);
+	void writeFloat(float fOut);
 
-	int writeDouble(double dOut);
+	void writeDouble(double dOut);
 
-	int writeString(String strOut);
-
-	int writeSerializable(ISerializable oOut);
+	void writeString(String strOut);
+	
+	void writeSerializable(Object oOut);
 }

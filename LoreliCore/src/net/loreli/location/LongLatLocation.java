@@ -45,24 +45,17 @@ public class LongLatLocation implements ISerializable
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		int iLength = 0;
-		iLength += oSerializer.writeDouble(m_dLongitude);
-		iLength += oSerializer.writeDouble(m_dLatitude);
-		return iLength;
+		oSerializer.writeDouble(m_dLongitude);
+		oSerializer.writeDouble(m_dLatitude);
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		int iLength = 0;
-		Ref<Double> oVal = new Ref<Double>();
-		iLength += oDeSerializer.readDouble(oVal);
-		m_dLongitude = oVal.get();
-		iLength += oDeSerializer.readDouble(oVal);
-		m_dLatitude = oVal.get();
-		return iLength;
+		m_dLongitude = oDeSerializer.readDouble();
+		m_dLatitude = oDeSerializer.readDouble();
 	}
 
 }

@@ -21,18 +21,15 @@ public class RegistrationValidatedMessageType implements IMessageType
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		return oSerializer.writeBoolean(m_bRegistrationSuccess);
+		oSerializer.writeBoolean(m_bRegistrationSuccess);
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		Ref<Boolean> bRegistrationSuccess = new Ref<Boolean>();
-		int iLength = oDeSerializer.readBoolean(bRegistrationSuccess);
-		m_bRegistrationSuccess = bRegistrationSuccess.get();
-		return iLength;
+		m_bRegistrationSuccess = oDeSerializer.readBoolean();
 	}
 
 	public boolean isRegistrationSuccess()

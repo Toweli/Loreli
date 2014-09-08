@@ -23,23 +23,18 @@ public class AuthenticateMessageType implements IMessageType
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		int iLength = oSerializer.writeString(m_strAccountName);
-		iLength += oSerializer.writeString(m_strPasswordHash);
-		return iLength;
+		oSerializer.writeString(m_strAccountName);
+		oSerializer.writeString(m_strPasswordHash);
+		
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		Ref<String> strAccountName = new Ref<String>();
-		Ref<String> strPasswordHash = new Ref<String>();
-		int iLength = oDeSerializer.readString(strAccountName);
-		iLength += oDeSerializer.readString(strPasswordHash);
-		m_strAccountName = strAccountName.get();
-		m_strPasswordHash = strPasswordHash.get();
-		return iLength;
+		m_strAccountName = oDeSerializer.readString();
+		m_strPasswordHash = oDeSerializer.readString();
 	}
 
 	public String getAccountName()

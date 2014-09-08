@@ -21,18 +21,15 @@ public class AuthenticationValidatedMessageType implements IMessageType
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		return oSerializer.writeBoolean(m_bAuthenticationSuccess);
+		oSerializer.writeBoolean(m_bAuthenticationSuccess);
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		Ref<Boolean> bAuthentificationSuccess = new Ref<Boolean>();
-		int iLength = oDeSerializer.readBoolean(bAuthentificationSuccess);
-		m_bAuthenticationSuccess = bAuthentificationSuccess.get();
-		return iLength;
+		m_bAuthenticationSuccess = oDeSerializer.readBoolean();
 	}
 
 	public boolean isAuthenticationSuccess()

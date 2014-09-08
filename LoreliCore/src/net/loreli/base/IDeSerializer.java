@@ -2,23 +2,24 @@ package net.loreli.base;
 
 import java.io.IOException;
 
+
 public interface IDeSerializer
 {
-	int readBoolean(Ref<Boolean> bIn) throws IOException;
+	boolean readBoolean() throws IOException;
 
-	int readByte(Ref<Byte> bIn) throws IOException;
+	byte readByte() throws IOException;
 
-	int readShort(Ref<Short> iIn) throws IOException;
+	short readShort() throws IOException;
 
-	int readInt(Ref<Integer> iIn) throws IOException;
+	int readInt() throws IOException;
 
-	int readLong(Ref<Long> iIn) throws IOException;
+	long readLong() throws IOException;
 
-	int readFloat(Ref<Float> fIn) throws IOException;
+	float readFloat() throws IOException;
 
-	int readDouble(Ref<Double> dIn) throws IOException;
+	double readDouble() throws IOException;
 
-	int readString(Ref<String> strIn) throws IOException;
-
-	int readSerializable(ISerializable oIn) throws IOException;
+	String readString() throws IOException;
+	
+	Object readSerializable() throws IOException;
 }

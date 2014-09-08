@@ -70,27 +70,18 @@ public class TileLocation implements ISerializable
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		int iLength = 0;
-		iLength += oSerializer.writeDouble(m_dTileX);
-		iLength += oSerializer.writeDouble(m_dTileY);
-		iLength += oSerializer.writeInt(m_iZoom);
-		return iLength;
+		oSerializer.writeDouble(m_dTileX);
+		oSerializer.writeDouble(m_dTileY);
+		oSerializer.writeInt(m_iZoom);
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		int iLength = 0;
-		Ref<Double> oVal = new Ref<Double>();
-		iLength += oDeSerializer.readDouble(oVal);
-		m_dTileX = oVal.get();
-		iLength += oDeSerializer.readDouble(oVal);
-		m_dTileY = oVal.get();
-		Ref<Integer> iVal = new Ref<Integer>();
-		iLength += oDeSerializer.readInt(iVal);
-		m_iZoom = iVal.get();
-		return iLength;
+		m_dTileX = oDeSerializer.readDouble();
+		m_dTileY = oDeSerializer.readDouble();
+		m_iZoom = oDeSerializer.readInt();
 	}
 }

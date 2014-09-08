@@ -49,27 +49,22 @@ public class RequestIsAliveMessageType implements IMessageType
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		int iLength = 0;
-		iLength += oSerializer.writeByte(m_eType.getTypeID());
-		return iLength;
+		oSerializer.writeByte(m_eType.getTypeID());
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		int iLength = 0;
-		Ref<Byte> bRes = new Ref<Byte>();
-		iLength += oDeSerializer.readByte(bRes);
+		byte bRes = oDeSerializer.readByte();
 		for (RequestType eType : RequestType.values())
 		{
-			if (eType.getTypeID() == bRes.get())
+			if (eType.getTypeID() == bRes)
 			{
 				m_eType = eType;
 			}
 		}
-		return iLength;
 	}
 
 }

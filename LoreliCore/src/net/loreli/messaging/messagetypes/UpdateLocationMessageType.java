@@ -32,19 +32,15 @@ public class UpdateLocationMessageType implements IMessageType
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		int iLength = 0;
-		iLength += oSerializer.writeSerializable(m_oLocation);
-		return iLength;
+		oSerializer.writeSerializable(m_oLocation);
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		int iLength = 0;
 		m_oLocation = new LongLatLocation();
-		iLength += oDeSerializer.readSerializable(m_oLocation);
-		return iLength;
+		m_oLocation = (LongLatLocation) oDeSerializer.readSerializable();
 	}
 }

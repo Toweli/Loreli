@@ -40,7 +40,7 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		return m_oBufferedOut != null;
 	}
 
-	private int writeBytes(byte[] aBytes)
+	private void writeBytes(byte[] aBytes)
 	{
 		int iTriedWrites = 0;
 		boolean bWriteSuccess = false;
@@ -62,192 +62,157 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 			ProgramLogSingleton.getInstance().error("IOException",
 					"Cann't write a message after " + iTriedWrites + " tries.");
 		}
-		return aBytes.length;
 	}
 
 	@Override
-	public int readBoolean(Ref<Boolean> bIn) throws IOException
+	public boolean readBoolean() throws IOException
 	{
-		bIn.set(m_oDataIn.readBoolean());
-		return 1;
+		return m_oDataIn.readBoolean();
 	}
 
 	@Override
-	public int readByte(Ref<Byte> bIn) throws IOException
+	public byte readByte() throws IOException
 	{
-		bIn.set(m_oDataIn.readByte());
-		return 1;
+		return m_oDataIn.readByte();
 	}
 
 	@Override
-	public int readShort(Ref<Short> iIn) throws IOException
+	public short readShort() throws IOException
 	{
-		iIn.set(m_oDataIn.readShort());
-		return 2;
+		return m_oDataIn.readShort();
 	}
 
 	@Override
-	public int readInt(Ref<Integer> iIn) throws IOException
+	public int readInt() throws IOException
 	{
-		iIn.set(m_oDataIn.readInt());
-		return 4;
+		return m_oDataIn.readInt();
 	}
 
 	@Override
-	public int readLong(Ref<Long> iIn) throws IOException
+	public long readLong() throws IOException
 	{
-		iIn.set(m_oDataIn.readLong());
-		return 8;
+		return m_oDataIn.readLong();
 	}
 
 	@Override
-	public int readFloat(Ref<Float> fIn) throws IOException
+	public float readFloat() throws IOException
 	{
-		fIn.set(m_oDataIn.readFloat());
-		return 4;
+		return m_oDataIn.readFloat();
 	}
 
 	@Override
-	public int readDouble(Ref<Double> dIn) throws IOException
+	public double readDouble() throws IOException
 	{
-		dIn.set(m_oDataIn.readDouble());
-		return 8;
+		return m_oDataIn.readDouble();
 	}
 
 	@Override
-	public int readString(Ref<String> strIn) throws IOException
+	public String readString() throws IOException
 	{
 		int iLength = m_oDataIn.readInt();
 		byte[] data = new byte[iLength];
 		m_oDataIn.readFully(data);
-		strIn.set(new String(data, "UTF-8"));
-		return 4 + iLength;
+		return new String(data, "UTF-8");
 
 	}
 
 	@Override
-	public int readSerializable(ISerializable oIn) throws IOException
-	{
-		return oIn.deserialize(this);
-	}
-
-	@Override
-	public int writeBoolean(boolean bOut)
+	public void writeBoolean(boolean bOut)
 	{
 		try
 		{
 			m_oBufferedOut.writeBoolean(bOut);
-			return 1;
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
 	}
 
 	@Override
-	public int writeByte(byte bOut)
+	public void writeByte(byte bOut)
 	{
-		return writeBytes(new byte[] { bOut });
+		writeBytes(new byte[] { bOut });
 	}
 
 	@Override
-	public int writeShort(short iOut)
+	public void writeShort(short iOut)
 	{
 		try
 		{
 			m_oBufferedOut.writeShort(iOut);
-			return 2;
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
 	}
 
 	@Override
-	public int writeInt(int iOut)
+	public void writeInt(int iOut)
 	{
 		try
 		{
 			m_oBufferedOut.writeInt(iOut);
-			return 4;
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
 	}
 
 	@Override
-	public int writeLong(long iOut)
+	public void writeLong(long iOut)
 	{
 		try
 		{
 			m_oBufferedOut.writeLong(iOut);
-			return 8;
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
 	}
 
 	@Override
-	public int writeFloat(float fOut)
+	public void writeFloat(float fOut)
 	{
 		try
 		{
 			m_oBufferedOut.writeFloat(fOut);
-			return 4;
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
 	}
 
 	@Override
-	public int writeDouble(double dOut)
+	public void writeDouble(double dOut)
 	{
 		try
 		{
 			m_oBufferedOut.writeDouble(dOut);
-			return 8;
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
 	}
 
 	@Override
-	public int writeString(String strOut)
+	public void writeString(String strOut)
 	{
 		try
 		{
 			byte[] data = strOut.getBytes("UTF-8");
-			int iResult = writeInt(data.length);
-			iResult += writeBytes(data);
-			return iResult;
+			writeInt(data.length);
+			writeBytes(data);
 		}
 		catch (IOException e)
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
-			return 0;
 		}
-	}
-
-	@Override
-	public int writeSerializable(ISerializable oOut)
-	{
-		return oOut.serialize(this);
 	}
 
 	public void flush()
@@ -260,5 +225,18 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		{
 			ProgramLogSingleton.getInstance().error("IOException", "Cann't flush the BufferedOutputStream.");
 		}
+	}
+
+	@Override
+	public Object readSerializable() throws IOException
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeSerializable(Object oObject)
+	{
+		// TODO Auto-generated method stub
 	}
 }

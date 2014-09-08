@@ -21,18 +21,15 @@ public class SimpleStringMessageType implements IMessageType
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		return oSerializer.writeString(m_strMessage);
+		oSerializer.writeString(m_strMessage);
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		Ref<String> strMessage = new Ref<String>();
-		int iLength = oDeSerializer.readString(strMessage);
-		setMessage(strMessage.get());
-		return iLength;
+		setMessage(oDeSerializer.readString());
 	}
 
 	public String getMessage()

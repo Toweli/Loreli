@@ -7,14 +7,12 @@ import net.loreli.messaging.IMessageType;
 public class RequestAuthenticationMessageType implements IMessageType
 {
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		return 0;
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer)
+	public void deserialize(IDeSerializer oDeSerializer)
 	{
-		return 0;
 	}
 }

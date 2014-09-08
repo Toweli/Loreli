@@ -24,22 +24,22 @@ public class Message implements ISerializable
 	}
 
 	@Override
-	public int serialize(ISerializer oSerializer)
+	public void serialize(ISerializer oSerializer)
 	{
-		int iLength = oSerializer.writeString(m_oMessageType.getClass().getSimpleName());
-		iLength += oSerializer.writeSerializable(m_oMessageType);
-		return iLength;
+//		int iLength = oSerializer.writeString(m_oMessageType.getClass().getSimpleName());
+//		iLength += oSerializer.writeSerializable(m_oMessageType);
+//		return iLength;
 	}
 
 	@Override
-	public int deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		Ref<String> strName = new Ref<String>();
-		int iLength = oDeSerializer.readString(strName);
-		m_oMessageType = new Factory<IMessageType>(FactoryRegister.getInstance().getFactory("MessageTypeFactory"))
-				.createObject(strName.get());
-		iLength += oDeSerializer.readSerializable(m_oMessageType);
-		return iLength;
+//		Ref<String> strName = new Ref<String>();
+//		int iLength = oDeSerializer.readString(strName);
+//		m_oMessageType = new Factory<IMessageType>(FactoryRegister.getInstance().getFactory("MessageTypeFactory"))
+//				.createObject(strName.get());
+//		iLength += oDeSerializer.readSerializable(m_oMessageType);
+//		return iLength;
 	}
 
 	public String getMessageTypeName()

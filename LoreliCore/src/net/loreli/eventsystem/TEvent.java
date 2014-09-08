@@ -1,49 +1,72 @@
 package net.loreli.eventsystem;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.loreli.logging.ProgramLogSingleton;
 
-public class TEvent<Arguments >
+public class TEvent<Arguments>
 {
-	private ArrayList<TEventHandler<Arguments>> m_liEventHandler = new ArrayList<>();
-	private Object m_oSender;
+	private List<TEventHandler<Arguments>>	m_liEventHandler	= new ArrayList<>();
+	private Object							m_oSender;
 	
-	public TEvent(Object oSender)
+	private Class<Arguments> m_oArgumentsClass;
+
+	public TEvent(Object oSender, Class<Arguments> oArgumentsClass)
 	{
 		m_oSender = oSender;
+		m_oArgumentsClass = oArgumentsClass;
 	}
-	
+
 	public void raise(Arguments oArguments)
 	{
-		for(TEventHandler<Arguments> oEventHandler : m_liEventHandler)
+		for (TEventHandler<Arguments> oEventHandler : m_liEventHandler)
 		{
 			oEventHandler.handleEvent(m_oSender, oArguments);
 		}
 	}
-	
+
 	public void addHandler(Object oHandler, String strMethodName, boolean bQueued)
 	{
-		TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName, bQueued);
-		if(!m_liEventHandler.contains(oEventHandler))
+		try
 		{
-			m_liEventHandler.add(oEventHandler);
+			Method oMethod = oHandler.getClass().getMethod(strMethodName, Object.class, m_oArgumentsClass);
+			
+
+			TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName, bQueued);
+			if (!m_liEventHandler.contains(oEventHandler))
+			{
+				m_liEventHandler.add(oEventHandler);
+			}
+			else
+			{
+				ProgramLogSingleton.getInstance().warning("Handler already exists", 4);
+			}
+			
 		}
-		else
+		catch (NoSuchMethodException e)
 		{
-			ProgramLogSingleton.getInstance().warning("Handler already exists", 4);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	
+
 	public void addHandler(Object oHandler, String strMethodName)
 	{
 		addHandler(oHandler, strMethodName, false);
 	}
-	
+
 	public void removeHandler(Object oHandler, String strMethodName)
 	{
 		TEventHandler<Arguments> oEventHandler = new TEventHandler<Arguments>(oHandler, strMethodName);
-		if(m_liEventHandler.contains(oEventHandler))
+		if (m_liEventHandler.contains(oEventHandler))
 		{
 			m_liEventHandler.remove(oEventHandler);
 		}
@@ -52,13 +75,13 @@ public class TEvent<Arguments >
 			ProgramLogSingleton.getInstance().warning("Handler doesn't exist", 4);
 		}
 	}
-	
+
 	public void removeAllHandlerOf(Object oHandler)
 	{
 		ArrayList<TEventHandler<Arguments>> liToRemove = new ArrayList<>();
-		for(TEventHandler<Arguments> oEventHandler : m_liEventHandler)
+		for (TEventHandler<Arguments> oEventHandler : m_liEventHandler)
 		{
-			if(oEventHandler.getHandler().equals(oHandler))
+			if (oEventHandler.getHandler().equals(oHandler))
 			{
 				liToRemove.add(oEventHandler);
 			}
