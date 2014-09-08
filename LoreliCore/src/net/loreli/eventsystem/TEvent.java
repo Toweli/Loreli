@@ -1,7 +1,6 @@
 package net.loreli.eventsystem;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 

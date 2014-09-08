@@ -5,9 +5,6 @@ import java.io.IOException;
 import net.loreli.base.IDeSerializer;
 import net.loreli.base.ISerializable;
 import net.loreli.base.ISerializer;
-import net.loreli.base.Ref;
-import net.loreli.factory.Factory;
-import net.loreli.factory.FactoryRegister;
 
 public class Message implements ISerializable
 {

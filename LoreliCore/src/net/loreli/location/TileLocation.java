@@ -5,7 +5,6 @@ import java.io.IOException;
 import net.loreli.base.IDeSerializer;
 import net.loreli.base.ISerializable;
 import net.loreli.base.ISerializer;
-import net.loreli.base.Ref;
 
 public class TileLocation implements ISerializable
 {

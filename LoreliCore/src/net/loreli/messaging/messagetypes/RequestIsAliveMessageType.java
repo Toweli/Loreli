@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import net.loreli.base.IDeSerializer;
 import net.loreli.base.ISerializer;
-import net.loreli.base.Ref;
 import net.loreli.messaging.IMessageType;
 
 public class RequestIsAliveMessageType implements IMessageType
