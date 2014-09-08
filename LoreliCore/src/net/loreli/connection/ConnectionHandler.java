@@ -6,7 +6,7 @@ import net.loreli.logging.ProgramLogSingleton;
 import net.loreli.messaging.IMessageHandler;
 import net.loreli.messaging.Message;
 
-public class ConnectionHandler implements Runnable, IConnectionLostListener, IConnectionEstablishedListener
+public class ConnectionHandler implements Runnable
 {
 	private IConnection							m_oConnection;
 	private Thread								m_oThread;
@@ -75,8 +75,7 @@ public class ConnectionHandler implements Runnable, IConnectionLostListener, ICo
 		return m_oConnection.isConnected();
 	}
 
-	@Override
-	public void onConnectionLost()
+	public void onConnectionLost(Object oSender, IConnection oConnection)
 	{
 		disconnect();
 		// TODO: do something special (implement something here)
@@ -86,8 +85,7 @@ public class ConnectionHandler implements Runnable, IConnectionLostListener, ICo
 		// send something etc. ...
 	}
 
-	@Override
-	public void onConnectionEstablishedListener(IConnection oConnection)
+	public void onConnectionEstablished(Object oSender, IConnection oConnection)
 	{
 		synchronized (this)
 		{
@@ -113,7 +111,6 @@ public class ConnectionHandler implements Runnable, IConnectionLostListener, ICo
 			m_oConnection = oConnection;
 			m_bConnecting = !m_oConnection.isConnected();
 		}
-
 	}
 
 	public boolean isConnecting()

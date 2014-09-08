@@ -2,17 +2,20 @@ package net.loreli.connection;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import net.loreli.base.StreamReaderWriter;
+import net.loreli.eventsystem.TEvent;
 import net.loreli.logging.ProgramLogSingleton;
 import net.loreli.messaging.Message;
 
 public class NetworkConnection implements Runnable, IConnection
 {
+	public TEvent<IConnection> ConnectionLostEvent = new TEvent<>(this, IConnection.class);
+	public TEvent<IConnection> ConnectionEstablishedEvent = new TEvent<>(this, IConnection.class);
+	
 	private Socket								m_oSocket;
 	private boolean								m_bIsRunning;
 	private Thread								m_oListeningThread;
@@ -22,21 +25,17 @@ public class NetworkConnection implements Runnable, IConnection
 
 	StreamReaderWriter							m_oStreamReaderWriter;
 
-	private ArrayList<IConnectionLostListener>	m_liConnectionLostListener;
-
 	private BlockingQueue<Message>			m_qReceivedMessages;
 
 	NetworkConnection(Socket oSocket)
 	{
 		m_oSocket = oSocket;
 		m_qReceivedMessages = new ArrayBlockingQueue<Message>(100);
-		m_liConnectionLostListener = new ArrayList<IConnectionLostListener>();
 	}
 
 	NetworkConnection(String strAdress, int iPort)
 	{
 		m_qReceivedMessages = new ArrayBlockingQueue<Message>(100);
-		m_liConnectionLostListener = new ArrayList<IConnectionLostListener>();
 		m_strAdress = strAdress;
 		m_iPort = iPort;
 	}
@@ -51,6 +50,7 @@ public class NetworkConnection implements Runnable, IConnection
 			{
 				m_oSocket = new Socket(m_strAdress, m_iPort);
 				bConnected = true;
+				ConnectionEstablishedEvent.raise(this);
 			}
 			catch (Exception e)
 			{
@@ -66,6 +66,10 @@ public class NetworkConnection implements Runnable, IConnection
 						"Cann't create a Socket to " + m_strAdress + ":" + m_iPort);
 			}
 			iTrys++;
+		}
+		if(!bConnected)
+		{
+			ConnectionLostEvent.raise(this);
 		}
 		return bConnected;
 	}
@@ -131,7 +135,7 @@ public class NetworkConnection implements Runnable, IConnection
 		}
 		if (m_oSocket.isClosed())
 		{
-			sendConnectionLost();
+			ConnectionLostEvent.raise(this);
 		}
 	}
 
@@ -172,34 +176,6 @@ public class NetworkConnection implements Runnable, IConnection
 					"BlockingQueue was interrupted while waiting.");
 		}
 		return null;
-	}
-
-	public boolean registerConnectionLostHandler(IConnectionLostListener oHandler)
-	{
-		if (!m_liConnectionLostListener.contains(oHandler))
-		{
-			m_liConnectionLostListener.add(oHandler);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean unregisterConnectionLostHandler(IConnectionLostListener oHandler)
-	{
-		if (m_liConnectionLostListener.contains(oHandler))
-		{
-			m_liConnectionLostListener.remove(oHandler);
-			return true;
-		}
-		return false;
-	}
-
-	private void sendConnectionLost()
-	{
-		for (IConnectionLostListener oListener : m_liConnectionLostListener)
-		{
-			oListener.onConnectionLost();
-		}
 	}
 
 	@Override

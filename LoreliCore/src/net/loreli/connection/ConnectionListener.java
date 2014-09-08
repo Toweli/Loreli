@@ -7,15 +7,17 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
+import net.loreli.eventsystem.TEvent;
+
 public class ConnectionListener implements Runnable
 {
+	public TEvent<ConnectionListener> ConnectionRequestEvent = new TEvent<>(this, ConnectionListener.class);
+	
 	private ServerSocket							m_oServerSocket;
 	private int										m_iListeningPort;
 
 	private ArrayList<IConnection>					m_liConnections;
 	private ReentrantLock							m_oLock;
-
-	private ArrayList<IConnectionRequestListener>	m_liConnectionRequestHandler;
 
 	private Thread									m_oListeningThread;
 
@@ -24,7 +26,6 @@ public class ConnectionListener implements Runnable
 	public ConnectionListener(int iListeningPort)
 	{
 		m_iListeningPort = iListeningPort;
-		m_liConnectionRequestHandler = new ArrayList<IConnectionRequestListener>();
 		m_liConnections = new ArrayList<IConnection>();
 	}
 
@@ -70,7 +71,7 @@ public class ConnectionListener implements Runnable
 				m_oLock.lock();
 				m_liConnections.add(oConnection);
 				m_oLock.unlock();
-				notifyConnectionRequest();
+				ConnectionRequestEvent.raise(this);
 			}
 			catch (SocketTimeoutException e)
 			{
@@ -96,18 +97,4 @@ public class ConnectionListener implements Runnable
 		oResult.start();
 		return new ConnectionHandler(oResult);
 	}
-
-	public void registerConnectionRequestHandler(IConnectionRequestListener oConnectionReqestHandler)
-	{
-		m_liConnectionRequestHandler.add(oConnectionReqestHandler);
-	}
-
-	private void notifyConnectionRequest()
-	{
-		for (IConnectionRequestListener oHandler : m_liConnectionRequestHandler)
-		{
-			oHandler.onConnectionRequested(this);
-		}
-	}
-
 }

@@ -7,23 +7,16 @@ public class ConnectionCreator
 		final NetworkConnection oNetConnection = new NetworkConnection(strAddress, iPort);
 		final ConnectionHandler oResult = new ConnectionHandler(oNetConnection);
 
+		oNetConnection.ConnectionEstablishedEvent.addHandler(oResult, "onConnectionEstablished");
+		oNetConnection.ConnectionLostEvent.addHandler(oResult, "onConnectionLost");
+		
 		Thread oThr = new Thread(new Runnable()
 		{
-
 			@Override
 			public void run()
 			{
 				oNetConnection.connect();
-				if (oNetConnection.isConnected())
-				{
-					oResult.onConnectionEstablishedListener(oNetConnection);
-				}
-				else
-				{
-					oResult.onConnectionLost();
-				}
 			}
-
 		});
 		oThr.start();
 		return oResult;
@@ -34,24 +27,18 @@ public class ConnectionCreator
 		final NetworkConnection oNetConnection = new NetworkConnection(strAddress, iPort);
 		oConnectionHandler.disconnect();
 		oConnectionHandler.setConnection(oNetConnection);
+		
+
+		oNetConnection.ConnectionEstablishedEvent.addHandler(oConnectionHandler, "onConnectionEstablished");
+		oNetConnection.ConnectionLostEvent.addHandler(oConnectionHandler, "onConnectionLost");
 
 		Thread oThr = new Thread(new Runnable()
 		{
-
 			@Override
 			public void run()
 			{
 				oNetConnection.connect();
-				if (oNetConnection.isConnected())
-				{
-					oConnectionHandler.onConnectionEstablishedListener(oNetConnection);
-				}
-				else
-				{
-					oConnectionHandler.onConnectionLost();
-				}
 			}
-
 		});
 		oThr.start();
 	}

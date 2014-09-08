@@ -1,21 +1,23 @@
 package net.loreli.eventsystem;
 
+import java.lang.reflect.Method;
+
 public class TEventHandler<Arguments>
 {
 	private Object	m_oHandler;
-	private String	m_strMethod;
+	private Method	m_oMethod;
 	
 	private boolean m_bQueued;
 
-	TEventHandler(Object oHandler, String strMethod)
+	TEventHandler(Object oHandler, Method oMethod)
 	{
-		this(oHandler, strMethod, false);
+		this(oHandler, oMethod, false);
 	}
 	
-	TEventHandler(Object oHandler, String strMethod, boolean bQueued)
+	TEventHandler(Object oHandler, Method oMethod, boolean bQueued)
 	{
 		m_oHandler = oHandler;
-		m_strMethod = strMethod;
+		m_oMethod = oMethod;
 		m_bQueued = bQueued;
 	}
 	
@@ -24,9 +26,9 @@ public class TEventHandler<Arguments>
 		return m_oHandler;
 	}
 	
-	String getMethodName()
+	Method getMethod()
 	{
-		return m_strMethod;
+		return m_oMethod;
 	}
 
 	public void handleEvent(Object oSender, Arguments oArguments)
@@ -54,7 +56,7 @@ public class TEventHandler<Arguments>
 		if(oOther instanceof TEventHandler<?>)
 		{
 			TEventHandler<?> oOtherHandler = (TEventHandler<?>) oOther;
-			return oOtherHandler.m_oHandler.equals(m_oHandler) && oOtherHandler.m_strMethod.equals(m_strMethod);
+			return oOtherHandler.m_oHandler.equals(m_oHandler) && oOtherHandler.m_oMethod.equals(m_oMethod);
 		}
 		else
 		{
