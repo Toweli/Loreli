@@ -2,9 +2,9 @@ package net.loreli.location;
 
 import java.io.IOException;
 
-import net.loreli.base.IDeSerializer;
-import net.loreli.base.ISerializable;
-import net.loreli.base.ISerializer;
+import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.ISerializable;
+import net.loreli.serialization.ISerializer;
 
 public class TileLocation implements ISerializable
 {

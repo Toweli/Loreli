@@ -5,16 +5,13 @@ import java.util.HashMap;
 
 import net.loreli.logging.ProgramLogSingleton;
 
-public class Factory<T> implements IFactory
+public class Factory<T>
 {
 	private HashMap<String, Creater<? extends T>>	m_mCreater; // WTF?
 
-	public Factory(IFactory oFactory) throws ClassCastException
+	public Factory(Factory<T> oFactory) throws ClassCastException
 	{
-		@SuppressWarnings("unchecked")
-		Factory<T> obj = this.getClass().cast(oFactory);
-		if (obj != null)
-			m_mCreater = obj.m_mCreater;
+		m_mCreater = oFactory.m_mCreater;
 	}
 
 	public Factory()

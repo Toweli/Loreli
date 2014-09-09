@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class FactoryRegister
 {
-	private HashMap<String, IFactory>	m_mFactories;
+	private HashMap<String, Factory<?>>	m_mFactories;
 
 	private static FactoryRegister		m_oInstance;
 
@@ -17,15 +17,15 @@ public class FactoryRegister
 
 	private FactoryRegister()
 	{
-		m_mFactories = new HashMap<String, IFactory>();
+		m_mFactories = new HashMap<String, Factory<?>>();
 	}
 
-	public IFactory getFactory(String strName)
+	public Factory<?> getFactory(String strName)
 	{
 		return m_mFactories.get(strName);
 	}
 
-	public void registerFactory(String strName, IFactory oFactory)
+	public void registerFactory(String strName, Factory<?> oFactory)
 	{
 		m_mFactories.put(strName, oFactory);
 	}

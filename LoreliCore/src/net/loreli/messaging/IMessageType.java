@@ -1,6 +1,6 @@
 package net.loreli.messaging;
 
-import net.loreli.base.ISerializable;
+import net.loreli.serialization.ISerializable;
 
 public interface IMessageType extends ISerializable
 {

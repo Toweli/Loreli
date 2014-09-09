@@ -1,4 +1,4 @@
-package net.loreli.base;
+package net.loreli.serialization;
 
 public interface ISerializer
 {
@@ -18,5 +18,5 @@ public interface ISerializer
 
 	void writeString(String strOut);
 	
-	void writeSerializable(Object oOut);
+	void writeSerializable(Object oSerializable);
 }

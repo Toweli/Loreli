@@ -28,7 +28,8 @@ public class Creater<T>
 
 	public String getObjectName()
 	{
-		return m_oClass.getSimpleName();
+		// TODO: think about name or simpleName
+		return m_oClass.getName();
 	}
 
 	public T createObject()

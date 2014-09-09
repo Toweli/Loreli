@@ -2,10 +2,10 @@ package net.loreli.messaging.messagetypes;
 
 import java.io.IOException;
 
-import net.loreli.base.IDeSerializer;
-import net.loreli.base.ISerializer;
 import net.loreli.location.LongLatLocation;
 import net.loreli.messaging.IMessageType;
+import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.ISerializer;
 
 public class UpdateLocationMessageType implements IMessageType
 {
@@ -40,7 +40,6 @@ public class UpdateLocationMessageType implements IMessageType
 	@Override
 	public void deserialize(IDeSerializer oDeSerializer) throws IOException
 	{
-		m_oLocation = new LongLatLocation();
-		m_oLocation = (LongLatLocation) oDeSerializer.readSerializable();
+		m_oLocation = (LongLatLocation)oDeSerializer.readSerializable();
 	}
 }

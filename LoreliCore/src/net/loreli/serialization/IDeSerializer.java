@@ -1,4 +1,4 @@
-package net.loreli.base;
+package net.loreli.serialization;
 
 import java.io.IOException;
 

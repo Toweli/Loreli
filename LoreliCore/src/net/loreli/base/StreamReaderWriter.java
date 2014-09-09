@@ -9,6 +9,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import net.loreli.logging.ProgramLogSingleton;
+import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.ISerializable;
+import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.ObjectSerializer;
 
 public class StreamReaderWriter implements ISerializer, IDeSerializer
 {
@@ -230,13 +234,12 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 	@Override
 	public Object readSerializable() throws IOException
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return ObjectSerializer.getInstance().deserialize(this);
 	}
 
 	@Override
-	public void writeSerializable(Object oObject)
+	public void writeSerializable(Object oSerializable)
 	{
-		// TODO Auto-generated method stub
+		ObjectSerializer.getInstance().serialize(oSerializable, this);
 	}
 }

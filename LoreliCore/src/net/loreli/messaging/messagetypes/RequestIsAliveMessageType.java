@@ -2,9 +2,9 @@ package net.loreli.messaging.messagetypes;
 
 import java.io.IOException;
 
-import net.loreli.base.IDeSerializer;
-import net.loreli.base.ISerializer;
 import net.loreli.messaging.IMessageType;
+import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.ISerializer;
 
 public class RequestIsAliveMessageType implements IMessageType
 {
