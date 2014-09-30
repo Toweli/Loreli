@@ -8,6 +8,8 @@ public interface IDeSerializer
 	boolean readBoolean() throws IOException;
 
 	byte readByte() throws IOException;
+	
+	char readChar() throws IOException;
 
 	short readShort() throws IOException;
 

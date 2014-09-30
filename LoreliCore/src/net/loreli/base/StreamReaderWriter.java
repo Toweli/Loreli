@@ -79,6 +79,12 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 	{
 		return m_oDataIn.readByte();
 	}
+	
+	@Override
+	public char readChar() throws IOException
+	{
+		return m_oDataIn.readChar();
+	}
 
 	@Override
 	public short readShort() throws IOException
@@ -139,6 +145,19 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 		writeBytes(new byte[] { bOut });
 	}
 
+	@Override
+	public void writeChar(char cOut)
+	{
+		try
+		{
+			m_oBufferedOut.writeChar(cOut);
+		}
+		catch (IOException e)
+		{
+			ProgramLogSingleton.getInstance().error("IOException", "Cann't write into the BufferedOutputStream.");
+		}
+	}
+	
 	@Override
 	public void writeShort(short iOut)
 	{

@@ -5,6 +5,8 @@ public interface ISerializer
 	void writeBoolean(boolean bOut);
 
 	void writeByte(byte bOut);
+	
+	void writeChar(char cOut);
 
 	void writeShort(short iOut);
 
