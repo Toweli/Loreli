@@ -3,9 +3,9 @@ package net.loreli.serialization;
 import java.io.IOException;
 
 
-public interface IObjectReaderWriter
+public interface IObjectReaderWriter<T>
 {
-	public void writeObject(Object oObject, ISerializer oSerializer);
-	public Object readObject(IDeSerializer oSerializer) throws IOException;
+	public void writeObject(T oObject, ISerializer oSerializer);
+	public T readObject(IDeSerializer oSerializer) throws IOException;
 	public int getID();
 }
