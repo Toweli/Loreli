@@ -6,25 +6,25 @@ import net.loreli.serialization.IDeSerializer;
 import net.loreli.serialization.IObjectReaderWriter;
 import net.loreli.serialization.ISerializer;
 
-public class DoubleReaderWriter implements IObjectReaderWriter<Double>
+public class LongReaderWriter implements IObjectReaderWriter<Long>
 {
 
 	@Override
-	public void writeObject(Double oObject, ISerializer oSerializer)
+	public void writeObject(Long oObject, ISerializer oSerializer)
 	{
-		oSerializer.writeDouble(oObject);
+		oSerializer.writeLong(oObject);
 	}
 
 	@Override
-	public Double readObject(IDeSerializer oSerializer) throws IOException
+	public Long readObject(IDeSerializer oSerializer) throws IOException
 	{
-		return oSerializer.readDouble();
+		return oSerializer.readLong();
 	}
 
 	@Override
 	public int getID()
 	{
-		return 8;
+		return 6;
 	}
 
 }
