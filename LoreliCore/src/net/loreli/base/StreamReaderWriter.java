@@ -9,12 +9,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import net.loreli.logging.ProgramLogSingleton;
-import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.IReader;
 import net.loreli.serialization.ISerializable;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IWriter;
 import net.loreli.serialization.ObjectSerializer;
 
-public class StreamReaderWriter implements ISerializer, IDeSerializer
+public class StreamReaderWriter implements IWriter, IReader
 {
 	private DataInputStream		m_oDataIn;
 	private DataOutputStream	m_oBufferedOut;
@@ -251,13 +251,13 @@ public class StreamReaderWriter implements ISerializer, IDeSerializer
 	}
 
 	@Override
-	public Object readSerializable() throws IOException
+	public Object readObject() throws IOException
 	{
 		return ObjectSerializer.getInstance().deserialize(this);
 	}
 
 	@Override
-	public void writeSerializable(Object oSerializable)
+	public void writeObject(Object oSerializable)
 	{
 		ObjectSerializer.getInstance().serialize(oSerializable, this);
 	}

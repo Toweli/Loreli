@@ -2,9 +2,9 @@ package net.loreli.location;
 
 import java.io.IOException;
 
-import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.IReader;
 import net.loreli.serialization.ISerializable;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IWriter;
 
 public class TileLocation implements ISerializable
 {
@@ -69,7 +69,7 @@ public class TileLocation implements ISerializable
 	}
 
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
 		oSerializer.writeDouble(m_dTileX);
 		oSerializer.writeDouble(m_dTileY);
@@ -77,7 +77,7 @@ public class TileLocation implements ISerializable
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IReader oDeSerializer) throws IOException
 	{
 		m_dTileX = oDeSerializer.readDouble();
 		m_dTileY = oDeSerializer.readDouble();

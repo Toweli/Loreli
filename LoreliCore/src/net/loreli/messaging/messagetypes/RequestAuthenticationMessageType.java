@@ -1,18 +1,18 @@
 package net.loreli.messaging.messagetypes;
 
 import net.loreli.messaging.IMessageType;
-import net.loreli.serialization.IDeSerializer;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IReader;
+import net.loreli.serialization.IWriter;
 
 public class RequestAuthenticationMessageType implements IMessageType
 {
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer)
+	public void deserialize(IReader oDeSerializer)
 	{
 	}
 }

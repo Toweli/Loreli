@@ -3,8 +3,8 @@ package net.loreli.messaging.messagetypes;
 import java.io.IOException;
 
 import net.loreli.messaging.IMessageType;
-import net.loreli.serialization.IDeSerializer;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IReader;
+import net.loreli.serialization.IWriter;
 
 public class RequestIsAliveMessageType implements IMessageType
 {
@@ -48,13 +48,13 @@ public class RequestIsAliveMessageType implements IMessageType
 	}
 
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
 		oSerializer.writeByte(m_eType.getTypeID());
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IReader oDeSerializer) throws IOException
 	{
 		byte bRes = oDeSerializer.readByte();
 		for (RequestType eType : RequestType.values())

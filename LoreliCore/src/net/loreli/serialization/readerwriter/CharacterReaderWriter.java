@@ -2,21 +2,21 @@ package net.loreli.serialization.readerwriter;
 
 import java.io.IOException;
 
-import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.IReader;
 import net.loreli.serialization.IObjectReaderWriter;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IWriter;
 
 public class CharacterReaderWriter implements IObjectReaderWriter<Character>
 {
 
 	@Override
-	public void writeObject(Character oObject, ISerializer oSerializer)
+	public void writeObject(Character oObject, IWriter oSerializer)
 	{
 		oSerializer.writeChar(oObject);
 	}
 
 	@Override
-	public Character readObject(IDeSerializer oSerializer) throws IOException
+	public Character readObject(IReader oSerializer) throws IOException
 	{
 		return oSerializer.readChar();
 	}

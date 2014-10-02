@@ -1,6 +1,6 @@
 package net.loreli.serialization;
 
-public interface ISerializer
+public interface IWriter
 {
 	void writeBoolean(boolean bOut);
 
@@ -20,5 +20,5 @@ public interface ISerializer
 
 	void writeString(String strOut);
 	
-	void writeSerializable(Object oSerializable);
+	void writeObject(Object oSerializable);
 }

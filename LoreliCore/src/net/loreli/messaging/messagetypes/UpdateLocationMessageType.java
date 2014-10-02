@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import net.loreli.location.LongLatLocation;
 import net.loreli.messaging.IMessageType;
-import net.loreli.serialization.IDeSerializer;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IReader;
+import net.loreli.serialization.IWriter;
 
 public class UpdateLocationMessageType implements IMessageType
 {
@@ -32,14 +32,14 @@ public class UpdateLocationMessageType implements IMessageType
 	}
 
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
-		oSerializer.writeSerializable(m_oLocation);
+		oSerializer.writeObject(m_oLocation);
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IReader oDeSerializer) throws IOException
 	{
-		m_oLocation = (LongLatLocation)oDeSerializer.readSerializable();
+		m_oLocation = (LongLatLocation)oDeSerializer.readObject();
 	}
 }

@@ -2,9 +2,9 @@ package net.loreli.messaging;
 
 import java.io.IOException;
 
-import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.IReader;
 import net.loreli.serialization.ISerializable;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IWriter;
 
 public class Message implements ISerializable
 {
@@ -21,15 +21,15 @@ public class Message implements ISerializable
 	}
 
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
-		oSerializer.writeSerializable(m_oMessageType);
+		oSerializer.writeObject(m_oMessageType);
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IReader oDeSerializer) throws IOException
 	{
-		m_oMessageType = (IMessageType)oDeSerializer.readSerializable();
+		m_oMessageType = (IMessageType)oDeSerializer.readObject();
 	}
 
 	public String getMessageTypeName()

@@ -3,8 +3,8 @@ package net.loreli.messaging.messagetypes;
 import java.io.IOException;
 
 import net.loreli.messaging.IMessageType;
-import net.loreli.serialization.IDeSerializer;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IReader;
+import net.loreli.serialization.IWriter;
 
 public class AuthenticationValidatedMessageType implements IMessageType
 {
@@ -20,13 +20,13 @@ public class AuthenticationValidatedMessageType implements IMessageType
 	}
 
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
 		oSerializer.writeBoolean(m_bAuthenticationSuccess);
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IReader oDeSerializer) throws IOException
 	{
 		m_bAuthenticationSuccess = oDeSerializer.readBoolean();
 	}

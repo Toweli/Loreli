@@ -3,7 +3,7 @@ package net.loreli.serialization;
 import java.io.IOException;
 
 
-public interface IDeSerializer
+public interface IReader
 {
 	boolean readBoolean() throws IOException;
 
@@ -23,5 +23,5 @@ public interface IDeSerializer
 
 	String readString() throws IOException;
 	
-	Object readSerializable() throws IOException;
+	Object readObject() throws IOException;
 }

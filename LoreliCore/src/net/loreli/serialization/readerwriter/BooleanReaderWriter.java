@@ -2,21 +2,21 @@ package net.loreli.serialization.readerwriter;
 
 import java.io.IOException;
 
-import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.IReader;
 import net.loreli.serialization.IObjectReaderWriter;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IWriter;
 
 public class BooleanReaderWriter implements IObjectReaderWriter<Boolean>
 {
 
 	@Override
-	public void writeObject(Boolean oObject, ISerializer oSerializer)
+	public void writeObject(Boolean oObject, IWriter oSerializer)
 	{
 		oSerializer.writeBoolean(oObject);		
 	}
 
 	@Override
-	public Boolean readObject(IDeSerializer oSerializer) throws IOException
+	public Boolean readObject(IReader oSerializer) throws IOException
 	{
 		return oSerializer.readBoolean();
 	}

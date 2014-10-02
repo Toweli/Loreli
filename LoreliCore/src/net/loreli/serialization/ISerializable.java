@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface ISerializable
 {
-	void serialize(ISerializer oSerializer);
+	void serialize(IWriter oSerializer);
 
-	void deserialize(IDeSerializer oDeSerializer) throws IOException;
+	void deserialize(IReader oDeSerializer) throws IOException;
 }

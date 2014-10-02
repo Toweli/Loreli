@@ -34,7 +34,7 @@ public class ObjectSerializer
 		return m_oInstance;
 	}
 
-	public <T> void serialize(T oObject, ISerializer oSerializer)
+	public <T> void serialize(T oObject, IWriter oSerializer)
 	{
 		@SuppressWarnings("unchecked")
 		IObjectReaderWriter<T> oReaderWriter = (IObjectReaderWriter<T>) m_oFactory.createObject(oObject.getClass()
@@ -43,7 +43,7 @@ public class ObjectSerializer
 		oReaderWriter.writeObject(oObject, oSerializer);
 	}
 
-	public Object deserialize(IDeSerializer oDeSerializer) throws IOException
+	public Object deserialize(IReader oDeSerializer) throws IOException
 	{
 		int iID = oDeSerializer.readInt();
 		IObjectReaderWriter<?> oReaderWriter = m_oFactory.createObject(m_mClassMap.get(iID).getName());

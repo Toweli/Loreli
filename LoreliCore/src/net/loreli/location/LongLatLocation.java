@@ -2,9 +2,9 @@ package net.loreli.location;
 
 import java.io.IOException;
 
-import net.loreli.serialization.IDeSerializer;
+import net.loreli.serialization.IReader;
 import net.loreli.serialization.ISerializable;
-import net.loreli.serialization.ISerializer;
+import net.loreli.serialization.IWriter;
 
 public class LongLatLocation implements ISerializable
 {
@@ -44,14 +44,14 @@ public class LongLatLocation implements ISerializable
 	}
 
 	@Override
-	public void serialize(ISerializer oSerializer)
+	public void serialize(IWriter oSerializer)
 	{
 		oSerializer.writeDouble(m_dLongitude);
 		oSerializer.writeDouble(m_dLatitude);
 	}
 
 	@Override
-	public void deserialize(IDeSerializer oDeSerializer) throws IOException
+	public void deserialize(IReader oDeSerializer) throws IOException
 	{
 		m_dLongitude = oDeSerializer.readDouble();
 		m_dLatitude = oDeSerializer.readDouble();
