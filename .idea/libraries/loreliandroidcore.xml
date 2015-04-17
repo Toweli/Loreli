@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="loreliandroidcore">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/LoreliAndroidCore/bin/loreliandroidcore.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

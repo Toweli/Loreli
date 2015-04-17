@@ -1,0 +1,3 @@
+include 'LoreliAnnotations'
+include 'LoreliCore'
+include 'LoreliAndroidCore'

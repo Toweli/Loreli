@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LoreliAndroidCore/LoreliAndroidCore.iml" filepath="$PROJECT_DIR$/LoreliAndroidCore/LoreliAndroidCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LoreliAnnotations/src/main/LoreliAnnotations.iml" filepath="$PROJECT_DIR$/LoreliAnnotations/src/main/LoreliAnnotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LoreliCore/LoreliCore.iml" filepath="$PROJECT_DIR$/LoreliCore/LoreliCore.iml" />
+    </modules>
+  </component>
+</project>
+
