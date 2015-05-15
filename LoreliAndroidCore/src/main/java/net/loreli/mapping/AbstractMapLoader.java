@@ -59,7 +59,7 @@ public abstract class AbstractMapLoader extends AbstractDecorator<IMapLoader> im
 					}
 					else
 					{
-						notifySuccessed(params[0]);
+						notifySucceeded(params[0]);
 					}
 					return null;
 				}
@@ -84,7 +84,7 @@ public abstract class AbstractMapLoader extends AbstractDecorator<IMapLoader> im
 	
 	public void onMapLoaded(TileLocation oLocation)
 	{
-		notifySuccessed(oLocation);
+		notifySucceeded(oLocation);
 	}
 
 	public void onMapLoadedFailed(TileLocation oLocation)
@@ -92,7 +92,7 @@ public abstract class AbstractMapLoader extends AbstractDecorator<IMapLoader> im
 		notifyFailed(oLocation);
 	}
 	
-	protected void notifySuccessed(TileLocation oLocation)
+	protected void notifySucceeded(TileLocation oLocation)
 	{
 		ArrayList<IMapLoader.IListener> liListener = m_mapLoadingTiles.get(oLocation);
 		for(IMapLoader.IListener oListener : liListener)

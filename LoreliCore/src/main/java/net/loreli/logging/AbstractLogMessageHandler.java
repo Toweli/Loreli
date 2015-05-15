@@ -6,18 +6,18 @@ import java.io.OutputStream;
 
 public abstract class AbstractLogMessageHandler
 {
-	private String[] m_aSuportedMessageTypes;
+	private String[] m_aSupportedMessageTypes;
 	private DataOutputStream m_oOutputStream;
 	
-	protected AbstractLogMessageHandler( OutputStream oOutputStream, String[] aSuportedMessageTypes )
+	protected AbstractLogMessageHandler( OutputStream oOutputStream, String[] aSupportedMessageTypes )
 	{
-		m_aSuportedMessageTypes = aSuportedMessageTypes;
+		m_aSupportedMessageTypes = aSupportedMessageTypes;
 		m_oOutputStream = new DataOutputStream(oOutputStream);
 	}
 	
-	final public String[] getSuportedMessageTypes()
+	final public String[] getSupportedMessageTypes()
 	{
-		return m_aSuportedMessageTypes;
+		return m_aSupportedMessageTypes;
 	}
 	
 	abstract public void handleMessage( AbstractLogMessage oMessage );

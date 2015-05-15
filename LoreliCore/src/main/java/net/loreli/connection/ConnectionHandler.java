@@ -59,7 +59,7 @@ public class ConnectionHandler implements Runnable
 		m_mMessageHandler.get(oMessage.getMessageTypeName()).handleMessage(oMessage);
 	}
 
-	// TODO: allow more than one registration per messagetype
+	// TODO: allow more than one registration per message type
 	public void registerMessageHandler(String strMessageType, IMessageHandler oMessageHandler)
 	{
 		m_mMessageHandler.put(strMessageType, oMessageHandler);

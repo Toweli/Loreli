@@ -20,10 +20,10 @@ public class NetworkConnection implements Runnable, IConnection
 	private boolean								m_bIsRunning;
 	private Thread								m_oListeningThread;
 
-	private String								m_strAdress;
+	private String								m_strAddress;
 	private int									m_iPort;
 
-	StreamReaderWriter							m_oStreamReaderWriter;
+	private StreamReaderWriter							m_oStreamReaderWriter;
 
 	private BlockingQueue<Message>			m_qReceivedMessages;
 
@@ -33,10 +33,10 @@ public class NetworkConnection implements Runnable, IConnection
 		m_qReceivedMessages = new ArrayBlockingQueue<Message>(100);
 	}
 
-	NetworkConnection(String strAdress, int iPort)
+	NetworkConnection(String strAddress, int iPort)
 	{
 		m_qReceivedMessages = new ArrayBlockingQueue<Message>(100);
-		m_strAdress = strAdress;
+		m_strAddress = strAddress;
 		m_iPort = iPort;
 	}
 
@@ -48,7 +48,7 @@ public class NetworkConnection implements Runnable, IConnection
 		{
 			try
 			{
-				m_oSocket = new Socket(m_strAdress, m_iPort);
+				m_oSocket = new Socket(m_strAddress, m_iPort);
 				bConnected = true;
 				ConnectionEstablishedEvent.raise(this);
 			}
@@ -63,7 +63,7 @@ public class NetworkConnection implements Runnable, IConnection
 				}
 
 				ProgramLogSingleton.getInstance().error("ConnectionError",
-						"Cann't create a Socket to " + m_strAdress + ":" + m_iPort);
+						"Can't create a Socket to " + m_strAddress + ":" + m_iPort);
 			}
 			iTrys++;
 		}
@@ -90,7 +90,7 @@ public class NetworkConnection implements Runnable, IConnection
 		}
 		catch (IOException e)
 		{
-			ProgramLogSingleton.getInstance().error("IOException", "Cann't create a StreamReaderWriter");
+			ProgramLogSingleton.getInstance().error("IOException", "Can't create a StreamReaderWriter");
 			m_bIsRunning = false;
 		}
 	}
@@ -121,14 +121,14 @@ public class NetworkConnection implements Runnable, IConnection
 			}
 			catch (IOException e1)
 			{
-				ProgramLogSingleton.getInstance().error("DeserializationError", "Cann't deserializes a message");
+				ProgramLogSingleton.getInstance().error("DeserializationError", "Can't deserialize a message");
 				try
 				{
 					m_oSocket.close();
 				}
 				catch (IOException e)
 				{
-					ProgramLogSingleton.getInstance().error("SocketCloseException", "Cann't close socket.");
+					ProgramLogSingleton.getInstance().error("SocketCloseException", "Can't close socket.");
 				}
 			}
 
@@ -193,7 +193,7 @@ public class NetworkConnection implements Runnable, IConnection
 		}
 		catch (IOException e)
 		{
-			ProgramLogSingleton.getInstance().error("SocketError", "Cann't close the Socket");
+			ProgramLogSingleton.getInstance().error("SocketError", "Can't close the Socket");
 		}
 	}
 }

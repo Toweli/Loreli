@@ -14,13 +14,13 @@ import net.loreli.serialization.readerwriter.StringReaderWriter;
 
 public class ReaderWriterRegistry
 {
-	private HashMap<Class<?>, IObjectReaderWriter<?>> m_mapReaderWiter;
+	private HashMap<Class<?>, IObjectReaderWriter<?>> m_mapReaderWriter;
 	
 	private static ReaderWriterRegistry M_OINSTANCE = null;
 	
 	private ReaderWriterRegistry()
 	{
-		m_mapReaderWiter = new HashMap<>();
+		m_mapReaderWriter = new HashMap<>();
 	}
 	
 	public static ReaderWriterRegistry getInstance()
@@ -34,13 +34,13 @@ public class ReaderWriterRegistry
 	
 	public <T> void registerReaderWriter(Class<T> oClass, IObjectReaderWriter<T> oReaderWriter)
 	{
-		m_mapReaderWiter.put(oClass, oReaderWriter);
+		m_mapReaderWriter.put(oClass, oReaderWriter);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <T> IObjectReaderWriter<T> getReaderWriter(Class<T> oClass)
 	{
-		return (IObjectReaderWriter<T>) m_mapReaderWiter.get(oClass);
+		return (IObjectReaderWriter<T>) m_mapReaderWriter.get(oClass);
 	}
 	
 	public void initPrimitives()

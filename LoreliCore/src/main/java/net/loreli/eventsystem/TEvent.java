@@ -47,12 +47,12 @@ public class TEvent<Arguments>
 		catch (NoSuchMethodException e)
 		{
 			ProgramLogSingleton.getInstance().error("SecurityException",
-					"Can't add Handler. Method doesn't exist. (Maybe it's not accessable(public).)");
+					"Can't add Handler. Method doesn't exist. (Maybe it's not accessible(public).)");
 		}
 		catch (SecurityException e)
 		{
 			ProgramLogSingleton.getInstance().error("NoSuchMethodException",
-					"Can't add Handler. Method is not accessable.");
+					"Can't add Handler. Method is not accessible.");
 		}
 	}
 
@@ -81,12 +81,12 @@ public class TEvent<Arguments>
 		catch (NoSuchMethodException e)
 		{
 			ProgramLogSingleton.getInstance().error("SecurityException",
-					"Can't remove Handler. Method doesn't exist. (Maybe it's not accessable(public).)");
+					"Can't remove Handler. Method doesn't exist. (Maybe it's not accessible(public).)");
 		}
 		catch (SecurityException e)
 		{
 			ProgramLogSingleton.getInstance().error("NoSuchMethodException",
-					"Can't remove Handler. Method is not accessable.");
+					"Can't remove Handler. Method is not accessible.");
 		}
 	}
 

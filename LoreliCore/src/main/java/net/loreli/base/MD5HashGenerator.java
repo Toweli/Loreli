@@ -22,12 +22,12 @@ public class MD5HashGenerator
 		m.update(oText.getBytes());
 		byte[] digest = m.digest();
 		BigInteger bigInt = new BigInteger(1, digest);
-		String hashtext = bigInt.toString(16);
+		String strHashText = bigInt.toString(16);
 		// Now we need to zero pad it if you actually want the full 32 chars.
-		while (hashtext.length() < 32)
+		while (strHashText.length() < 32)
 		{
-			hashtext = "0" + hashtext;
+            strHashText = "0" + strHashText;
 		}
-		return hashtext;
+		return strHashText;
 	}
 }

@@ -28,9 +28,9 @@ public class ErrorMessageHandler extends AbstractLogMessageHandler
 	 * 		6$	The name of the error message
 	 * 		7$	A description of the error message   
 	 */
-	public void setOutputFormat( String strFormate )
+	public void setOutputFormat( String strFormat )
 	{
-		m_strFormat = strFormate;
+		m_strFormat = strFormat;
 	}
 	
 	@Override

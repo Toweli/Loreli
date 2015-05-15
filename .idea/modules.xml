@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Loreli.iml" filepath="$PROJECT_DIR$/Loreli.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoreliAndroidCore/LoreliAndroidCore.iml" filepath="$PROJECT_DIR$/LoreliAndroidCore/LoreliAndroidCore.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LoreliAnnotations/loreliannotations.iml" filepath="$PROJECT_DIR$/LoreliAnnotations/loreliannotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LoreliAnnotations/LoreliAnnotations.iml" filepath="$PROJECT_DIR$/LoreliAnnotations/LoreliAnnotations.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoreliCore/LoreliCore.iml" filepath="$PROJECT_DIR$/LoreliCore/LoreliCore.iml" />
     </modules>
   </component>

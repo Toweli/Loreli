@@ -7,30 +7,30 @@ import net.loreli.logging.ProgramLogSingleton;
 
 public class Factory<T>
 {
-	private HashMap<String, Creater<? extends T>>	m_mCreater; // WTF?
+	private HashMap<String, Creator<? extends T>> m_mCreator; // WTF?
 
 	public Factory(Factory<T> oFactory) throws ClassCastException
 	{
-		m_mCreater = oFactory.m_mCreater;
+		m_mCreator = oFactory.m_mCreator;
 	}
 
 	public Factory()
 	{
-		m_mCreater = new HashMap<String, Creater<? extends T>>();
+		m_mCreator = new HashMap<String, Creator<? extends T>>();
 	}
 
 	public T createObject(String strName)
 	{
-		return m_mCreater.get(strName).createObject();
+		return m_mCreator.get(strName).createObject();
 	}
 
-	public void registerCreater(Class<? extends T> oClass)
+	public void registerCreator(Class<? extends T> oClass)
 	{
-		Creater<T> oCreater;
+		Creator<T> oCreator;
 		try
 		{
-			oCreater = new Creater<T>(oClass);
-			m_mCreater.put(oCreater.getObjectName(), oCreater);
+			oCreator = new Creator<T>(oClass);
+			m_mCreator.put(oCreator.getObjectName(), oCreator);
 		}
 		catch (InvalidClassException e)
 		{

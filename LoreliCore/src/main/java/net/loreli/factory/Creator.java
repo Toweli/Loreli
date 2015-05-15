@@ -5,11 +5,11 @@ import java.lang.reflect.Constructor;
 
 import net.loreli.logging.ProgramLogSingleton;
 
-public class Creater<T>
+public class Creator<T>
 {
 	Class<? extends T>	m_oClass;
 
-	public Creater(Class<? extends T> oClass) throws InvalidClassException
+	public Creator(Class<? extends T> oClass) throws InvalidClassException
 	{
 		m_oClass = oClass;
 		boolean bClassIsValid = false;
@@ -42,7 +42,7 @@ public class Creater<T>
 		{
 
 			ProgramLogSingleton.getInstance().error("ObjectCreationError",
-					"Cann't create an Object of type " + m_oClass.getName());
+					"Can't create an Object of type " + m_oClass.getName());
 		}
 		return null;
 	}

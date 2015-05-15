@@ -23,14 +23,14 @@ public class MessageTypeFactoryInitializer
 		}
 		Factory<IMessageType> oFactory = new Factory<IMessageType>();
 
-		oFactory.registerCreater(AuthenticateMessageType.class);
-		oFactory.registerCreater(AuthenticationValidatedMessageType.class);
-		oFactory.registerCreater(RegisterMessageType.class);
-		oFactory.registerCreater(RegistrationValidatedMessageType.class);
-		oFactory.registerCreater(RequestAuthenticationMessageType.class);
-		oFactory.registerCreater(SimpleStringMessageType.class);
-		oFactory.registerCreater(RequestIsAliveMessageType.class);
-		oFactory.registerCreater(UpdateLocationMessageType.class);
+		oFactory.registerCreator(AuthenticateMessageType.class);
+		oFactory.registerCreator(AuthenticationValidatedMessageType.class);
+		oFactory.registerCreator(RegisterMessageType.class);
+		oFactory.registerCreator(RegistrationValidatedMessageType.class);
+		oFactory.registerCreator(RequestAuthenticationMessageType.class);
+		oFactory.registerCreator(SimpleStringMessageType.class);
+		oFactory.registerCreator(RequestIsAliveMessageType.class);
+		oFactory.registerCreator(UpdateLocationMessageType.class);
 
 		FactoryRegister.getInstance().registerFactory("MessageTypeFactory", oFactory);
 	}

@@ -21,16 +21,16 @@ public class ProgramLogSingleton
 
 	public void addMessageHandler(AbstractLogMessageHandler oHandler)
 	{
-		String aSuportedMessageTypes[] = oHandler.getSuportedMessageTypes();
+		String aSupportedMessageTypes[] = oHandler.getSupportedMessageTypes();
 
-		for (int i = 0; i < aSuportedMessageTypes.length; ++i)
+		for (int i = 0; i < aSupportedMessageTypes.length; ++i)
 		{
-			ArrayList<AbstractLogMessageHandler> alHandler = m_mapMassageHandler.get(aSuportedMessageTypes[i]);
+			ArrayList<AbstractLogMessageHandler> alHandler = m_mapMassageHandler.get(aSupportedMessageTypes[i]);
 
 			if (null == alHandler)
 			{
 				alHandler = new ArrayList<AbstractLogMessageHandler>();
-				m_mapMassageHandler.put(aSuportedMessageTypes[i], alHandler);
+				m_mapMassageHandler.put(aSupportedMessageTypes[i], alHandler);
 			}
 
 			alHandler.add(oHandler);
@@ -42,7 +42,7 @@ public class ProgramLogSingleton
 		ArrayList<AbstractLogMessageHandler> alHandler = m_mapMassageHandler.get(oMessage.getMessageType());
 
 		if (null == alHandler)
-			return false; // there is no messageHanler for this type of message.
+			return false; // there is no messageHandler for this type of message.
 
 		for (int i = 0; i < alHandler.size(); ++i)
 		{

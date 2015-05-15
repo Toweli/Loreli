@@ -36,7 +36,7 @@ public class TEventHandler<Arguments>
 		EventEmitter oEmitter = new EventEmitter(this, oSender, oArguments);
 		if(m_bQueued)
 		{
-			EventManager.getInstance().putEventEmiter(oEmitter);
+			EventManager.getInstance().putEventEmitter(oEmitter);
 		}
 		else
 		{

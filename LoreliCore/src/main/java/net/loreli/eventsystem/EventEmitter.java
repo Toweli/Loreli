@@ -25,7 +25,7 @@ public class EventEmitter implements Runnable
 		}
 		catch (IllegalAccessException e)
 		{
-			ProgramLogSingleton.getInstance().error("IllegalAccessException", "cann't invoke method");
+			ProgramLogSingleton.getInstance().error("IllegalAccessException", "can't invoke method");
 		}
 		catch (IllegalArgumentException e)
 		{
