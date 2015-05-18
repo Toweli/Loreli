@@ -14,7 +14,7 @@ public class MapLoader extends AbstractDecorator<IMapLoader> implements IMapLoad
 	@Override
 	public void requestMapTile(TileLocation oLocation, IListener oListener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

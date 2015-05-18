@@ -7,7 +7,7 @@ import net.loreli.logging.ProgramLogSingleton;
 
 public class Factory<T>
 {
-	private HashMap<String, Creator<? extends T>> m_mCreator; // WTF?
+	HashMap<String, Creator<? extends T>> m_mCreator;
 
 	public Factory(Factory<T> oFactory) throws ClassCastException
 	{
